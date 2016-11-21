@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Panel</title>
+  <link rel="stylesheet" href="~/css/site.css"/>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+<nav>
+<ul class="nav nav-tabs">
+    <li role="presentation">
+        <a href="/dashboard">Home</a>
+      </li>
+    <li role="presentation">
+    <a href="/logout">Logout</a>
+    </li>
+    <li>
+        <a  data-toggle="dropdown"> Your Current Wallet: @ViewBag.User_one.wallet </a>
+    </li>
+    <li>
+    <a class="move_right_name" data-toggle="dropdown"> Hi @ViewBag.User_one.first_name @ViewBag.User_one.last_name</a>
+</li>
+</ul>
+</nav>
+  <form action='/addauction' method='post'>
+  <div class="col-md-4">
+        <div class="form-group">
+              <label for="product_name">Product Name</label>
+              <input name="product_name" type="text" class="form-control" id="product_name" placeholder="product name">
+        </div>
+         <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" rows="3" name="description" placeholder=" Your description Here"></textarea>
+        </div>
+         <div class="form-group">
+              <label for="start-bid">Start Bid</label>
+              <input name="start_bid" type="double" class="form-control" id="start_bid" placeholder="Starting Bid">
+        </div>
+         <div class="form-group">
+              <label for="bidend_date"> End Date:</label>
+              <input name="bidend_date" type="date" class="form-control" id="bidend_date" placeholder="Bid End">
+        </div>
+        <div class="form-group">
+              <input name="user_id" type="hidden" value ="@ViewBag.User_one.id" class="form-control" id="user_id">
+        </div>
+           <button type="submit" class="btn btn-default">Create Auction</button><br><br>
+</div>
+  </form>
+  </div>
+  </div>
+    @{
+        if(ViewBag.errors != null){
+            foreach(var error in ViewBag.errors){
+            <p class="errors">@error</p>
+            }
+        }   
+    } 
+</body>
+</html>

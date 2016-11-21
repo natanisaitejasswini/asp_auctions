@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Show Panel</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+<nav>
+<ul class="nav nav-tabs">
+<li role="presentation">
+    <a href="/dashboard">Home</a>
+    </li>
+    <li role="presentation">
+    <a href="/logout">Logout</a>
+    </li>
+    <li>
+    <a class="move_right_name" data-toggle="dropdown">@ViewBag.User_one.first_name @ViewBag.User_one.last_name</a>
+</li>
+</ul>
+</nav>
+<div class="container">
+      <p>
+  		<h4>@ViewBag.Auction_Info.product_name</h4>
+	  	<p>Description: @ViewBag.Auction_Info.description</p>
+      <p>Created By: @ViewBag.Auction_Info.first_name @ViewBag.Auction_Info.last_name</p>
+      <p>Bid Price by creator: $@ViewBag.Auction_Info.start_bid</p>
+	  	<p>Bid End Date: @ViewBag.Auction_Info.bidend_date.ToString("MM-dddd-yyyy")</p>
+	</p><br><br>
+    <p><b>Current Highest Bid:</b>  $@ViewBag.Auction_Info.top_bid By @ViewBag.Auction_Info.top_bid_creator</p>
+      @if(@ViewBag.Auction_Info.user_id != @ViewBag.User_one.id){
+           <form action='/addbid' method='post'>
+              <div class="col-md-4">
+              <div class="form-group">
+                  <label for="bid_amount">Your Bidding Amount</label>
+                  <input name="bid_amount" type="double" class="form-control" id="bid_amount" placeholder="Bid Amount">
+              </div>
+              <input type="hidden" name= "user_id" value = "@ViewBag.User_one.id">
+               <input type="hidden" name= "auction_id" value = "@ViewBag.Auction_Info.id">
+                <input type="hidden" name= "top_bid" value = "@ViewBag.Auction_Info.top_bid">
+                <input type="hidden" name= "top_bid_id" value = "@ViewBag.User_one.id">
+                 <input type="hidden" name= "top_bid_creator" value = "@ViewBag.User_one.first_name @ViewBag.User_one.last_name">
+              <button type="submit" class="btn btn-default">Add Bid</button><br><br>
+            </div>
+            </form>
+      }
+</div>  

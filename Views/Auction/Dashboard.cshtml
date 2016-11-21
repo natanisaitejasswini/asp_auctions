@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Panel</title>
+  <link rel="stylesheet" href="~/css/site.css"/>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<script>
+ </script>
+<body>
+<nav>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active">
+        <a href="/dashboard">Home</a>
+      </li>
+    <li role="presentation">
+    <a href="/logout">Logout</a>
+    </li>
+    <li>
+        <a  data-toggle="dropdown"> Your Current Wallet: $@ViewBag.User_one.wallet </a>
+    </li>
+    <li>
+    <a class="move_right_name" data-toggle="dropdown"> Hi @ViewBag.User_one.first_name @ViewBag.User_one.last_name</a>
+</li>
+</ul>
+</nav>
+<div class="container">
+    <div class="col-md-6">
+            <h4>Current Auctions</h4>
+            <a href="/new"><button type="button" class="btn pull-right">New Auction</button></a>
+            <table class='table'>
+    <thead>
+      <th>Product</th>
+      <th>Seller</th>
+      <th>Top Bid</th>
+      <th>Time Remaining</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+        @{
+        foreach(var All in ViewBag.All_Auctions){
+        <tr>
+            <td><a href="/auction/@All.id">@All.product_name</a></td>
+            <td>@All.first_name</td>
+            <td>@All.top_bid</td>
+            <td>@All.bidend_date</td>
+            <td>
+                @if(@All.user_id == @ViewBag.User_one.id)
+                        {
+                            <a href="/deleteauction/@All.id" class="btn btn-warning" onclick="return confirm('Are you sure you want to remove your Auction?');">Delete</a>
+                           if(@All.bidend_date <= DateTime.Now)
+                           {
+                               <a href="/getmoney/@All.id" class="btn btn-warning" onclick="return confirm('Once Bid Amount is added to wallet Your auction will be no longer available')";>Get Your Money</a>
+                           }
+                       }
+            </td>
+        </tr>
+        }
+    }
+  </tbody>
+  </table>
+        </div>
+    
+</div>
